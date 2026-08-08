@@ -24,7 +24,7 @@
   --brown: #5C3A21;         /* 深棕辅色 */
   --card: #FFFFFF;          /* 白卡片 */
   --text: #2B2118;          /* 正文深棕黑 */
-  --muted: #8A7A6A;         /* 次要文字 */
+  --muted: #66594B;         /* 次要文字（加深，提升米白背景对比度） */
   --radius: 16px;           /* 卡片圆角 */
   --radius-pill: 999px;     /* 按钮胶囊圆角 */
   --shadow: 0 6px 20px rgba(92,58,33,.08);
@@ -208,14 +208,13 @@ a:focus-visible, button:focus-visible, .btn:focus-visible{
 /* ---------- 4. 门店环境 ---------- */
 .env-grid{ display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
 .env-item{ margin: 0; }
-.env-media{
-  aspect-ratio: 1 / 1; border-radius: var(--radius);
-  background: linear-gradient(135deg, #FFE3CC, #F6C7A8);
-  display: flex; align-items: center; justify-content: center; font-size: 54px;
-  box-shadow: var(--shadow);
+.env-img{
+  width: 100%; aspect-ratio: 1 / 1; object-fit: cover; display: block;
+  border-radius: var(--radius); box-shadow: var(--shadow);
+  outline: 1px solid oklch(0 0 0 / 0.1); outline-offset: -1px;
   transition: transform .25s ease, box-shadow .25s ease;
 }
-.env-item:hover .env-media{ transform: translateY(-6px); box-shadow: var(--shadow-hover); }
+.env-item:hover .env-img{ transform: translateY(-6px); box-shadow: var(--shadow-hover); }
 .env-item figcaption{ text-align: center; margin-top: 10px; font-weight: 600; color: var(--brown); }
 
 /* ---------- 5. 营业信息 ---------- */
