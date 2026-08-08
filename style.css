@@ -1,7 +1,7 @@
 /* =========================================================
    巷子口家常菜 · 单页展示网站样式
    ---------------------------------------------------------
-   设计规范：
+   设计规范（简报锁定，原样保留）：
      背景   #FFF8F0（米白）
      主色   #E8590C（橙红）
      辅色   #5C3A21（深棕）
@@ -10,6 +10,10 @@
      字体   中文系统字体栈
      标题   加粗；正文 16px
      栅格   招牌菜桌面 3 列 / 手机 1 列
+   自由轴创新（frontend-design 技能）：
+     签名元素 = 巷子口亮灯的暖门 + 升腾锅气（纯 CSS）
+     字体层级  + eyebrow 小标签 + 价格强调
+     文案更具体；动效克制且尊重 reduced-motion
    ========================================================= */
 
 /* ---------- 设计变量 ---------- */
@@ -39,7 +43,7 @@ body{
   background: var(--bg);
   color: var(--text);
   font-size: 16px;            /* 正文 16px */
-  line-height: 1.6;
+  line-height: 1.65;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -47,6 +51,16 @@ body{
 
 /* 锚点滚动时不被吸顶导航遮挡 */
 #top, #dishes, #env, #info{ scroll-margin-top: calc(var(--nav-h) + 12px); }
+
+/* ---------- 通用小标签（eyebrow）：自由轴字体处理 ---------- */
+.eyebrow{
+  display: inline-block;
+  color: var(--primary);
+  font-size: 13px; font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: none;
+  margin-bottom: 12px;
+}
 
 /* ---------- 按钮 ---------- */
 .btn{
@@ -65,6 +79,12 @@ body{
 .btn-outline:hover{ background: rgba(232,89,12,.08); transform: translateY(-2px); }
 .btn-lg{ padding: 16px 36px; font-size: 17px; }
 
+/* 键盘可见焦点（可访问性底线） */
+a:focus-visible, button:focus-visible, .btn:focus-visible{
+  outline: 3px solid var(--primary);
+  outline-offset: 3px;
+}
+
 /* ---------- 1. 顶部导航（吸顶） ---------- */
 .navbar{
   position: sticky; top: 0; z-index: 100;
@@ -74,7 +94,7 @@ body{
   border-bottom: 1px solid rgba(92,58,33,.08);
 }
 .nav-inner{ height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-.brand{ font-size: 20px; font-weight: 800; color: var(--brown); text-decoration: none; }
+.brand{ font-size: 20px; font-weight: 800; color: var(--brown); text-decoration: none; letter-spacing: .5px; }
 .brand-accent{ color: var(--primary); }
 .nav-links{ display: flex; gap: 28px; }
 .nav-links a{
@@ -92,25 +112,68 @@ body{
 /* ---------- 2. Hero 首屏 ---------- */
 .hero{ padding: 72px 0 88px; }
 .hero-inner{ display: grid; grid-template-columns: 1.1fr .9fr; gap: 48px; align-items: center; }
-.hero-tag{ color: var(--primary); font-weight: 700; letter-spacing: .5px; margin-bottom: 14px; }
-.hero-title{ font-size: 44px; line-height: 1.2; font-weight: 800; color: var(--brown); margin-bottom: 18px; }
+.hero-title{ font-size: 52px; line-height: 1.12; font-weight: 800; letter-spacing: -1px; color: var(--brown); margin-bottom: 18px; }
 .hero-sub{ font-size: 17px; color: var(--muted); max-width: 30em; margin-bottom: 28px; }
 .hero-actions{ display: flex; gap: 14px; flex-wrap: wrap; }
-.media-block{
-  border-radius: var(--radius);
-  background: linear-gradient(135deg, #FFE3CC, #FFB088);
+
+/* ===== 签名元素：巷子口亮灯的暖门（纯 CSS，无外链） ===== */
+.hero-media{ position: relative; }
+.alley{
+  position: relative; width: 100%; height: 100%;
   aspect-ratio: 4 / 3;
-  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  /* 暮色巷子 + 门洞暖光：这是本页唯一的“冒险”，刻意与米白背景拉开对比 */
+  background:
+    radial-gradient(120% 90% at 50% 82%, rgba(255,214,150,.95), rgba(232,89,12,.55) 40%, rgba(92,58,33,.92) 80%),
+    linear-gradient(180deg, #3a2415, #1d120a);
   box-shadow: var(--shadow);
 }
-.media-emoji{ font-size: 76px; }
-.media-label{ color: var(--brown); font-weight: 600; background: rgba(255,255,255,.7); padding: 4px 14px; border-radius: var(--radius-pill); }
+.alley-glow{
+  position: absolute; left: 50%; top: 40%; transform: translate(-50%,-50%);
+  width: 70%; height: 70%;
+  background: radial-gradient(circle, rgba(255,228,180,.85), rgba(255,228,180,0) 62%);
+  filter: blur(4px);
+}
+.alley-door{
+  position: absolute; left: 50%; top: 34%; transform: translateX(-50%);
+  width: 44%; height: 60%;
+  border-radius: 46% 46% 14px 14px / 32% 32% 14px 14px;
+  background: linear-gradient(180deg, rgba(255,240,205,.96), rgba(255,178,120,.72));
+  box-shadow: 0 0 70px rgba(255,200,120,.75), inset 0 0 30px rgba(255,255,255,.4);
+}
+.alley-lantern{
+  position: absolute; top: 9%; left: 50%; transform: translateX(-50%);
+  font-size: 54px; filter: drop-shadow(0 4px 8px rgba(0,0,0,.45));
+}
+/* 三缕升腾的锅气 */
+.alley-steam{
+  position: absolute; bottom: 20%;
+  width: 12px; height: 64px; border-radius: 999px;
+  background: linear-gradient(180deg, rgba(255,255,255,0), rgba(255,255,255,.55));
+  filter: blur(6px); opacity: 0;
+  animation: steam 4.5s ease-in-out infinite;
+}
+.alley-steam.s1{ left: 41%; }
+.alley-steam.s2{ left: 50%; animation-delay: 1.5s; }
+.alley-steam.s3{ left: 59%; animation-delay: 3s; }
+@keyframes steam{
+  0%{ transform: translateY(12px) scaleX(1); opacity: 0; }
+  28%{ opacity: .6; }
+  100%{ transform: translateY(-72px) scaleX(1.7); opacity: 0; }
+}
+.alley-label{
+  position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%);
+  background: rgba(255,248,240,.92); color: var(--brown);
+  font-weight: 700; font-size: 13px; white-space: nowrap;
+  padding: 6px 14px; border-radius: var(--radius-pill);
+}
 
 /* ---------- 通用区块 ---------- */
 .section{ padding: 80px 0; }
 .section-alt{ background: #FFF1E2; }   /* 浅橙交替背景，提升层次 */
 .section-head{ text-align: center; margin-bottom: 48px; }
-.section-title{ font-size: 32px; font-weight: 800; color: var(--brown); }
+.section-title{ font-size: 32px; font-weight: 800; color: var(--brown); letter-spacing: -.5px; }
 .section-desc{ color: var(--muted); margin-top: 10px; font-size: 16px; }
 
 /* ---------- 3. 招牌菜卡片 ---------- */
@@ -122,10 +185,19 @@ body{
 }
 .dish-card:hover{ transform: translateY(-8px); box-shadow: var(--shadow-hover); }
 .dish-media{
+  position: relative;
   aspect-ratio: 16 / 10; display: flex; align-items: center; justify-content: center;
   background: linear-gradient(135deg, var(--c1, #E8590C), var(--c2, #FFB088));
 }
 .dish-emoji{ font-size: 56px; filter: drop-shadow(0 4px 6px rgba(0,0,0,.12)); }
+/* 镇店印章：唯一强调，呼应“招牌”主题（仅首卡） */
+.dish-stamp{
+  position: absolute; top: 12px; right: 12px;
+  font-size: 12px; font-weight: 800; color: #fff;
+  background: var(--brown); padding: 4px 10px; border-radius: var(--radius-pill);
+  transform: rotate(-6deg);
+  box-shadow: 0 4px 10px rgba(0,0,0,.18);
+}
 .dish-body{ padding: 18px 20px 20px; }
 .dish-name{ font-size: 19px; font-weight: 700; color: var(--brown); }
 .dish-desc{ color: var(--muted); font-size: 14.5px; margin: 8px 0 16px; min-height: 44px; }
@@ -141,7 +213,9 @@ body{
   background: linear-gradient(135deg, #FFE3CC, #F6C7A8);
   display: flex; align-items: center; justify-content: center; font-size: 54px;
   box-shadow: var(--shadow);
+  transition: transform .25s ease, box-shadow .25s ease;
 }
+.env-item:hover .env-media{ transform: translateY(-6px); box-shadow: var(--shadow-hover); }
 .env-item figcaption{ text-align: center; margin-top: 10px; font-weight: 600; color: var(--brown); }
 
 /* ---------- 5. 营业信息 ---------- */
@@ -156,17 +230,21 @@ body{
 
 /* ---------- 6. 页脚 ---------- */
 .footer{ background: var(--brown); color: #F3E9DE; padding: 40px 0; }
-.footer-brand{ font-size: 20px; font-weight: 800; }
+.footer-brand{ font-size: 20px; font-weight: 800; letter-spacing: .5px; }
 .footer-brand span{ color: #FFB088; }
 .footer-meta{ margin: 12px 0 6px; }
 .footer-meta a{ color: #FFB088; font-weight: 700; text-decoration: none; }
 .footer-note{ font-size: 13px; color: rgba(243,233,222,.6); }
 
+/* ---------- 滚动渐显（仅 JS 可用时启用，无 JS 内容照常显示） ---------- */
+.js .reveal{ opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
+.js .reveal.in{ opacity: 1; transform: none; }
+
 /* ---------- 响应式（手机端） ---------- */
 @media (max-width: 860px){
   .hero-inner{ grid-template-columns: 1fr; }   /* Hero 单列 */
-  .hero-title{ font-size: 34px; }
-  .hero-media{ order: -1; }                     /* 手机端图在上、文字在下（可选） */
+  .hero-title{ font-size: 36px; }
+  .hero-media{ order: -1; }                     /* 手机端图在上、文字在下 */
   .card-grid{ grid-template-columns: 1fr; }      /* 招牌菜 1 列 */
   .env-grid{ grid-template-columns: repeat(2, 1fr); }
   .info-grid{ grid-template-columns: 1fr; }
@@ -181,4 +259,12 @@ body{
     padding: 12px 4%; border-bottom: 1px solid rgba(92,58,33,.1);
   }
   .navbar.open .nav-links a{ padding: 10px 0; }
+}
+
+/* ---------- 尊重「减少动态效果」偏好 ---------- */
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior: auto; }
+  .alley-steam{ animation: none; opacity: .35; }
+  .js .reveal{ opacity: 1; transform: none; transition: none; }
+  .btn, .dish-card, .env-media{ transition: none; }
 }
