@@ -5,9 +5,9 @@
   ---------------------------------------------------------
   · 纯前端 HTML + CSS + JS，无需后端 / 数据库 / 登录 / 支付
   · 双击 index.html 即可在浏览器运行
-  · 所有图片均为「色块 + emoji」占位，不依赖任何外链
-    部署时把占位块替换为 <img src="xxx.jpg"> 即可
-  · 店名 / 电话 / 地址 / 地图链接 均为占位，见 script.js 顶部 CONFIG
+  · 所有图片均为 Pexels 真实照片，位于 images/ 目录，不依赖任何外链
+    如需替换，直接覆盖 images/ 下对应文件即可
+  · 店名 / 电话 / 地址 / 地图链接 均为示例，替换位置见 script.js 顶部 CONFIG
   · 设计遵循 frontend-design 技能：锁定简报配色，签名元素为
     「巷子口亮灯的暖门 + 升腾锅气」，文案具体、动效克制。
   =========================================================
@@ -16,7 +16,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- 标题：建议替换为「真实店名 · 一句话卖点」 -->
+  <!-- 页面标题 -->
   <title>巷子口家常菜 · 下班拐进巷子口，一碗热饭刚好</title>
   <meta name="description" content="巷子口家常菜，主营地道家常菜，人均30-60元。现炒现做、锅气十足，附近居民与上班族下班顺路的好饭。电话 / 导航一键直达。" />
   <link rel="stylesheet" href="style.css" />
@@ -28,7 +28,7 @@
   <!-- ===================== 1. 顶部导航（吸顶） ===================== -->
   <header class="navbar" id="navbar">
     <div class="container nav-inner">
-      <!-- 店名：替换为真实店名 -->
+      <!-- 店名 -->
       <a href="#top" class="brand">巷子口<span class="brand-accent">家常菜</span></a>
 
       <nav class="nav-links" aria-label="主导航">
@@ -37,8 +37,8 @@
         <a href="#info">营业信息</a>
       </nav>
 
-      <!-- 一键导航按钮：点击打开地图（占位链接，见 script.js CONFIG.mapUrl） -->
-      <a href="#" class="btn btn-primary nav-cta" data-nav>一键导航</a>
+      <!-- 一键导航按钮：点击打开地图（默认链接见 script.js CONFIG.mapUrl） -->
+      <a href="#" class="btn btn-primary nav-cta" data-nav>↗ 一键导航</a>
 
       <!-- 移动端菜单开关（小屏显示） -->
       <button class="nav-toggle" id="navToggle" aria-label="展开菜单" aria-expanded="false" aria-controls="navbar">☰</button>
@@ -54,7 +54,7 @@
         <p class="hero-sub">现炒现做，锅气不等人。红烧肉慢炖两小时，麻婆豆腐现剁现炒。下班顺路带一份，家里那口饭香，就回来了。</p>
         <div class="hero-actions">
           <a href="tel:13800000000" class="btn btn-primary" data-call>拨打电话</a>
-          <a href="#" class="btn btn-outline" data-nav>一键导航</a>
+          <a href="#" class="btn btn-outline" data-nav>↗ 一键导航</a>
         </div>
       </div>
 
@@ -85,8 +85,8 @@
       <div class="card-grid">
         <!-- 卡片1：带「镇店招牌」印章（唯一强调，呼应签名主题） -->
         <article class="dish-card reveal">
-          <div class="dish-media" style="--c1:#E8590C;--c2:#FFB088;">
-            <span class="dish-emoji">🍖</span>
+          <div class="dish-media">
+            <img class="dish-img" src="images/dish-hongshao.jpg" alt="秘制红烧肉，浓油赤酱的镇店招牌菜" loading="lazy">
             <span class="dish-stamp">镇店招牌</span>
           </div>
           <div class="dish-body">
@@ -101,8 +101,8 @@
 
         <!-- 卡片2 -->
         <article class="dish-card reveal">
-          <div class="dish-media" style="--c1:#D9480F;--c2:#FFA94D;">
-            <span class="dish-emoji">🥘</span>
+          <div class="dish-media">
+            <img class="dish-img" src="images/dish-mapo.jpg" alt="招牌麻婆豆腐，麻辣烫香浇饭" loading="lazy">
           </div>
           <div class="dish-body">
             <h3 class="dish-name">招牌麻婆豆腐</h3>
@@ -116,8 +116,8 @@
 
         <!-- 卡片3 -->
         <article class="dish-card reveal">
-          <div class="dish-media" style="--c1:#2F9E44;--c2:#8CE99A;">
-            <span class="dish-emoji">🫑</span>
+          <div class="dish-media">
+            <img class="dish-img" src="images/dish-xiaochao.jpg" alt="农家小炒肉，青椒爆炒肉片" loading="lazy">
           </div>
           <div class="dish-body">
             <h3 class="dish-name">农家小炒肉</h3>
@@ -131,8 +131,8 @@
 
         <!-- 卡片4 -->
         <article class="dish-card reveal">
-          <div class="dish-media" style="--c1:#E03131;--c2:#FFC9C9;">
-            <span class="dish-emoji">🍅</span>
+          <div class="dish-media">
+            <img class="dish-img" src="images/dish-tomato-egg.jpg" alt="番茄炒蛋，酸甜挂汁" loading="lazy">
           </div>
           <div class="dish-body">
             <h3 class="dish-name">番茄炒蛋</h3>
@@ -146,8 +146,8 @@
 
         <!-- 卡片5 -->
         <article class="dish-card reveal">
-          <div class="dish-media" style="--c1:#F08C00;--c2:#FFD8A8;">
-            <span class="dish-emoji">🥔</span>
+          <div class="dish-media">
+            <img class="dish-img" src="images/dish-potato.jpg" alt="爽口酸辣土豆丝，酸辣脆爽" loading="lazy">
           </div>
           <div class="dish-body">
             <h3 class="dish-name">爽口酸辣土豆丝</h3>
@@ -161,8 +161,8 @@
 
         <!-- 卡片6 -->
         <article class="dish-card reveal">
-          <div class="dish-media" style="--c1:#C2410C;--c2:#FFB088;">
-            <span class="dish-emoji">🍗</span>
+          <div class="dish-media">
+            <img class="dish-img" src="images/dish-kungpao.jpg" alt="宫保鸡丁，咸鲜微辣拌饭" loading="lazy">
           </div>
           <div class="dish-body">
             <h3 class="dish-name">宫保鸡丁</h3>
@@ -187,21 +187,20 @@
       </div>
 
       <div class="env-grid">
-        <!-- 每张照片位：占位色块 + emoji；部署时替换为 <img> -->
         <figure class="env-item reveal">
-          <div class="env-media">🍽️</div>
+          <img class="env-img" src="images/env-hall.jpg" alt="明亮整洁的用餐大厅" loading="lazy">
           <figcaption>大厅</figcaption>
         </figure>
         <figure class="env-item reveal">
-          <div class="env-media">🛋️</div>
+          <img class="env-img" src="images/env-room.jpg" alt="温馨私密的包间" loading="lazy">
           <figcaption>包间</figcaption>
         </figure>
         <figure class="env-item reveal">
-          <div class="env-media">👨‍🍳</div>
+          <img class="env-img" src="images/env-kitchen.jpg" alt="干净规范的后厨操作区" loading="lazy">
           <figcaption>后厨</figcaption>
         </figure>
         <figure class="env-item reveal">
-          <div class="env-media">🏪</div>
+          <img class="env-img" src="images/env-storefront.jpg" alt="巷子口家常菜门头招牌" loading="lazy">
           <figcaption>门头</figcaption>
         </figure>
       </div>
@@ -227,21 +226,18 @@
         <div class="info-card reveal">
           <div class="info-icon">📍</div>
           <h3>门店地址</h3>
-          <!-- 占位地址，请替换为真实门店地址 -->
-          <p>杭州市拱墅区<br/>莫干山路88号<br/><small class="placeholder">（占位地址，请替换）</small></p>
+          <p>杭州市拱墅区<br/>莫干山路88号</p>
         </div>
 
         <div class="info-card reveal">
           <div class="info-icon">📞</div>
           <h3>订餐电话</h3>
-          <!-- 占位电话，文本与链接由 script.js 统一替换 -->
           <p><a href="tel:13800000000" data-call>138-0000-0000</a></p>
         </div>
       </div>
 
       <div class="info-cta reveal">
-        <!-- 一键导航：打开占位地图链接 -->
-        <a href="#" class="btn btn-primary btn-lg" data-nav>一键导航到店</a>
+        <a href="#" class="btn btn-primary btn-lg" data-nav>↗ 一键导航到店</a>
       </div>
     </div>
   </section>
@@ -254,7 +250,7 @@
         营业时间 10:00–14:00 / 16:30–21:30 ·
         电话 <a href="tel:13800000000" data-call>138-0000-0000</a>
       </p>
-      <p class="footer-note">本页面为闲鱼 AI 建站服务案例，店名、电话、地址、图片均为占位示例。</p>
+      <p class="footer-note">本页面为闲鱼 AI 建站服务案例，店名、电话、地址、图片均为示意演示。</p>
     </div>
   </footer>
 
